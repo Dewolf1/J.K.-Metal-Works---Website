@@ -1,0 +1,11 @@
+{
+  "title": "J.K. Metal Works | Sheet Metal Fabrication & Cabinets",
+  "description": "Showcases J.K. Metal Works’ sheet metal fabrication, powder coating, and custom enclosures, helping businesses explore products, assess expertise, and get in touch.",
+  "robots": {
+    "index": true
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
