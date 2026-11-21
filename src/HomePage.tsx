@@ -1,4 +1,5 @@
 import { useEffect, useState, type ReactNode } from "react";
+import { Link, useNavigate } from "react-router";
 import logo from "./assets/logo.png";
 import factory from "./assets/factory.webp";
 import ProductCollection from "./components/ProductCollection";
@@ -102,6 +103,13 @@ const services = [
 
 function HomePage() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (window.location.hash === "#quote") {
+      navigate("/contact#quote", { replace: true });
+    }
+  }, [navigate]);
 
   useEffect(() => {
     if (!("IntersectionObserver" in window)) return;
@@ -161,9 +169,9 @@ function HomePage() {
           <a href="#products" onClick={closeMenu}>
             Products
           </a>
-          <a className="nav-contact" href="/contact#quote" onClick={closeMenu}>
+          <Link className="nav-contact" to="/contact#quote" onClick={closeMenu}>
             Request a quote <Arrow />
-          </a>
+          </Link>
         </nav>
         <button
           className="menu-button"
@@ -193,9 +201,9 @@ function HomePage() {
             standards and a commitment to dependable craft.
           </p>
           <div className="hero-actions">
-            <a className="button button-primary" href="/contact#quote">
+            <Link className="button button-primary" to="/contact#quote">
               Request a quote <Arrow />
-            </a>
+            </Link>
             <a className="text-link light" href="#products">
               Explore products <Arrow />
             </a>
@@ -304,12 +312,12 @@ function HomePage() {
               </ServiceIcon>
               <h3>{service.title}</h3>
               <p>{service.text}</p>
-              <a
-                href={`/contact?product=${encodeURIComponent(service.title)}#quote`}
+              <Link
+                to={`/contact?product=${encodeURIComponent(service.title)}#quote`}
                 aria-label={`Request a quote for ${service.title}`}
               >
                 <Arrow />
-              </a>
+              </Link>
             </article>
           ))}
         </div>
@@ -477,9 +485,9 @@ function HomePage() {
               <em>exceptional.</em>
             </h2>
           </div>
-          <a className="button quote-cta" href="/contact#quote">
+          <Link className="button quote-cta" to="/contact#quote">
             Request a quote <Arrow />
-          </a>
+          </Link>
         </div>
         <div className="contact-details">
           <div>
@@ -513,7 +521,7 @@ function HomePage() {
           <a href="#home">Home</a>
           <a href="#services">Services</a>
           <a href="#products">Products</a>
-          <a href="/contact#quote">Request a quote</a>
+          <Link to="/contact#quote">Request a quote</Link>
         </div>
         <div className="footer-bottom">
           <span>© {new Date().getFullYear()} J.K. Metal Works</span>

@@ -24,7 +24,15 @@ export default function ContactPage() {
 
   useEffect(() => {
     if (window.location.hash === "#quote") {
-      document.getElementById("quote")?.scrollIntoView({ behavior: "instant" });
+      const scrollToQuote = () => {
+        const el = document.getElementById("quote");
+        if (el) {
+          el.scrollIntoView({ behavior: "smooth" });
+        }
+      };
+      scrollToQuote();
+      const timer = setTimeout(scrollToQuote, 100);
+      return () => clearTimeout(timer);
     }
   }, [product]);
 

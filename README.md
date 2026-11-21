@@ -80,3 +80,4 @@ If you prefer to configure manually in Render:
      - **Source**: `/*`
      - **Destination**: `/index.html`
 5. Click **Create Static Site**.
+

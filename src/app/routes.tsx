@@ -1,4 +1,4 @@
-import { createBrowserRouter, Outlet } from "react-router";
+import { createBrowserRouter, Navigate, Outlet } from "react-router";
 import QuickContact from "../components/QuickContact";
 
 function Root() {
@@ -20,8 +20,16 @@ export const router = createBrowserRouter([
         lazy: async () => ({ Component: (await import("../HomePage")).default }),
       },
       {
+        path: "index.html",
+        lazy: async () => ({ Component: (await import("../HomePage")).default }),
+      },
+      {
         path: "contact",
         lazy: async () => ({ Component: (await import("../ContactPage")).default }),
+      },
+      {
+        path: "*",
+        element: <Navigate to="/" replace />,
       },
     ],
   },
