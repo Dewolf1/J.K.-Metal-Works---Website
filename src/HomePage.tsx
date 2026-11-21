@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router";
 import logo from "./assets/logo.png";
 import factory from "./assets/factory.webp";
 import ProductCollection from "./components/ProductCollection";
+import CountUp from "./components/CountUp";
 
 type IconProps = { className?: string };
 
@@ -124,12 +125,23 @@ function HomePage() {
             observer.unobserve(entry.target);
           }
         }),
-      { threshold: 0.12 },
+      { threshold: 0.05, rootMargin: "0px 0px 40px 0px" },
     );
+
     nodes.forEach((node) => {
-      if (!node.classList.contains("revealed")) node.classList.add("reveal-pending");
-      observer.observe(node);
+      const rect = node.getBoundingClientRect();
+      const inView =
+        rect.top <= (window.innerHeight || document.documentElement.clientHeight) + 60 &&
+        rect.bottom >= 0;
+
+      if (inView) {
+        node.classList.add("revealed");
+      } else {
+        node.classList.add("reveal-pending");
+        observer.observe(node);
+      }
     });
+
     return () => {
       observer.disconnect();
       nodes.forEach((node) => node.classList.remove("reveal-pending"));
@@ -211,15 +223,19 @@ function HomePage() {
         </div>
         <div className="hero-stats" aria-label="Company highlights">
           <div>
-            <strong>28+</strong>
+            <strong>
+              <CountUp end={28} suffix="+" duration={1800} delay={300} />
+            </strong>
             <span>Years of expertise</span>
           </div>
           <div>
-            <strong>8,000</strong>
+            <strong>
+              <CountUp end={8000} separator="," duration={2200} delay={450} />
+            </strong>
             <span>Sq. ft. facility</span>
           </div>
           <div>
-            <strong>Pan-India</strong>
+            <strong className="stat-badge">Pan-India</strong>
             <span>Supplier support</span>
           </div>
         </div>

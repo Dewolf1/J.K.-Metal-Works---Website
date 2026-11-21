@@ -225,6 +225,14 @@ h2 em {
   font-weight: 500;
   gap: 30px;
   padding: 16px 20px;
+  transition:
+    transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+    background 0.3s ease,
+    box-shadow 0.25s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.button:active {
+  transform: scale(0.97);
 }
 .button svg,
 .text-link svg {
@@ -280,11 +288,48 @@ h2 em {
   flex-direction: column;
 }
 .hero-stats strong {
-  font-size: 17px;
-  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  font-family: "Manrope", sans-serif;
+  font-size: clamp(20px, 2.2vw, 28px);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+.count-up-number {
+  display: inline-block;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+.stat-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.stat-badge::before {
+  background-color: var(--blue);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--blue);
+  content: "";
+  display: inline-block;
+  height: 7px;
+  width: 7px;
+  animation: pulseDot 2s infinite ease-in-out;
+}
+@keyframes pulseDot {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.4);
+    opacity: 1;
+    box-shadow: 0 0 14px var(--blue);
+  }
 }
 .hero-stats span {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.6);
   font-size: 11px;
   margin-top: 4px;
 }
@@ -391,14 +436,20 @@ h2 {
   padding: 34px;
   position: relative;
   transition:
-    background 0.4s ease,
-    color 0.4s ease,
-    transform 0.4s ease;
+    background 0.35s ease,
+    color 0.35s ease,
+    transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.35s ease;
+  -webkit-tap-highlight-color: transparent;
 }
 .service-card:hover {
   background: var(--ink);
   color: white;
-  transform: translateY(-5px);
+  transform: translateY(-6px);
+  box-shadow: 0 16px 36px rgba(8, 12, 15, 0.12);
+}
+.service-card:active {
+  transform: translateY(-2px) scale(0.99);
 }
 .service-number {
   color: var(--muted);
@@ -530,6 +581,14 @@ h2 {
   min-width: 0;
   padding: 0;
   text-align: left;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  -webkit-tap-highlight-color: transparent;
+}
+.collection-card:hover {
+  transform: translateY(-5px);
+}
+.collection-card:active {
+  transform: scale(0.98);
 }
 .collection-image {
   aspect-ratio: 1.12;
@@ -1521,16 +1580,17 @@ footer > p {
 
 [data-reveal] {
   transition:
-    opacity 0.8s var(--delay, 0ms),
-    transform 0.8s var(--delay, 0ms);
+    opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1) var(--delay, 0ms),
+    transform 0.75s cubic-bezier(0.16, 1, 0.3, 1) var(--delay, 0ms);
+  will-change: opacity, transform;
 }
 .reveal-pending {
   opacity: 0;
-  transform: translateY(25px);
+  transform: translate3d(0, 26px, 0);
 }
 [data-reveal].revealed {
   opacity: 1;
-  transform: translateY(0);
+  transform: translate3d(0, 0, 0);
 }
 
 @keyframes liftIn {
@@ -1913,28 +1973,28 @@ footer > p {
     min-height: 48px;
   }
   .hero-stats {
-    animation: liftIn 0.9s 0.65s both;
+    animation: liftIn 0.8s 0.25s cubic-bezier(0.16, 1, 0.3, 1) both;
     border-top: 1px solid rgba(255, 255, 255, 0.22);
     display: grid;
     gap: 0;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     inset: auto;
     margin-top: 40px;
-    padding: 24px 42px 0 0;
+    padding: 24px 8px 0 0;
     position: relative;
   }
   .hero-stats div + div {
     border-left: 1px solid rgba(255, 255, 255, 0.16);
-    padding-left: 12px;
+    padding-left: 10px;
   }
   .hero-stats strong {
     font-family: "Manrope", sans-serif;
-    font-size: clamp(18px, 5.4vw, 24px);
+    font-size: clamp(19px, 5.6vw, 25px);
     letter-spacing: -0.04em;
     line-height: 1.35;
   }
   .hero-stats div:last-child strong {
-    font-size: clamp(13px, 4vw, 18px);
+    font-size: clamp(12px, 3.8vw, 17px);
     line-height: 1.8;
   }
   .hero-stats span {
@@ -2171,15 +2231,12 @@ footer > p {
   html {
     scroll-behavior: auto;
   }
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
   [data-reveal] {
-    opacity: 1;
-    transform: none;
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .craft-ribbon-track {
+    animation: none;
   }
 }
